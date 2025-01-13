@@ -1,0 +1,23 @@
+<app-menu></app-menu>
+<div class="inventory-header" *ngIf="inventory">
+  <h1>{{ inventory.name }}</h1>
+</div>
+<div *ngIf="items">
+  <h2>Items</h2>
+  <table class="items-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of items">
+        <td>{{ item.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.price }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,16 @@
+<nav>
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li><a routerLink="/profile">Profile</a></li>
+      <li><a routerLink="/settings">Settings</a></li>
+      <li><a (click)="logout()">Logout</a></li>
+    </ul>
+    <div class="user-info" *ngIf="userData">
+      <div class="user-account">
+        Cuenta: <span>{{ userData.account.owner_inventory }}</span>
+      </div>
+      <div class="user-role">
+        Rol: <span>{{ userData.role.role_user }}</span>
+      </div>
+    </div>
+  </nav>

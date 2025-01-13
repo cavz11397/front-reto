@@ -20,4 +20,8 @@ export class AuthService {
       })
     );
   }
+
+  logout() {
+    this.authStateService.clearAuthData(); // Limpiar los datos de autenticación
+  }
 }

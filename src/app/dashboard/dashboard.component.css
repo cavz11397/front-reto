@@ -1,0 +1,29 @@
+.inventory-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .inventory-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .inventory-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .inventory-card h3 {
+    margin: 0 0 10px;
+  }
+  
+  .inventory-card p {
+    margin: 0;
+  }

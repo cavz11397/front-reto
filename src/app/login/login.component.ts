@@ -27,7 +27,6 @@ export class LoginComponent {
       response => {
         console.log('Login successful', response);
         this.authStateService.setAuthData(response); // Guardar la respuesta globalmente
-        debugger;
         this.router.navigate(['/dashboard']);
       },
       error => {

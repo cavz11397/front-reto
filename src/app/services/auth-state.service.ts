@@ -7,7 +7,6 @@ export class AuthStateService {
   private authData: any = null;
 
   setAuthData(data: any) {
-    debugger;
     this.authData = data;
   }
 
@@ -17,5 +16,9 @@ export class AuthStateService {
 
   clearAuthData() {
     this.authData = null;
+  }
+
+  getUserData() {
+    return this.authData ? this.authData : null;
   }
 }

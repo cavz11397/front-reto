@@ -1,0 +1,24 @@
+.inventory-header {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .items-table th, .items-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .items-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .items-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }

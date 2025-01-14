@@ -1,6 +1,42 @@
 <app-menu></app-menu>
 <div class="inventory-container">
-  <div class="inventory-card" *ngFor="let inventory of inventories" (click)="viewInventory(inventory)">
+  <button (click)="openAddInventoryModal(addInventoryTemplate)">
+    Add Inventory
+  </button>
+  <ng-template #addInventoryTemplate>
+    <div class="modal-body">
+      <h3>Add New Inventory</h3>
+      <form (ngSubmit)="addInventory()">
+        <div>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            [(ngModel)]="newInventory.name"
+            name="name"
+            required
+          />
+        </div>
+        <div>
+          <label for="description">description:</label>
+          <input
+            type="text"
+            id="description"
+            [(ngModel)]="newInventory.description"
+            name="description"
+            required
+          />
+        </div>
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  </ng-template>
+  <div
+    class="inventory-card"
+    *ngFor="let inventory of inventories"
+    (click)="viewInventory(inventory)"
+    (keypress)="viewInventory(inventory)"
+  >
     {{ inventory.name }}
   </div>
 </div>

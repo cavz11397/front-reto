@@ -6,8 +6,11 @@ import { MenuComponent } from '../shared/menu/menu.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Importar FormsModule
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { ChartConfiguration, ChartType, ChartData, registerables, Chart, ChartEvent } from 'chart.js';
+import { ChartType, ChartData, registerables, Chart, ChartEvent } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 // Registrar los controladores de gráficos
 Chart.register(...registerables);
@@ -26,39 +29,20 @@ export class InventoryDetailComponent implements OnInit {
   modalRef?: BsModalRef;
   newItem: any = { name: '', quantity: 0, price: 0 };
 
-  public polarAreaChartLabels: string[] = [];
   public polarAreaChartData: ChartData<'polarArea'> = {
-    labels: this.polarAreaChartLabels,
+    labels: [],
     datasets: [
       { data: [], label: 'Quantity' }
     ]
   };
   public polarAreaLegend = true;
   public polarAreaChartType: ChartType = 'polarArea';
-  public polarAreaChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'top',
-      },
-      tooltip: {
-        callbacks: {
-          label: (context) => {
-            const label = context.label || '';
-            const value = context.raw || 0;
-            return `${label}: ${value}`;
-          }
-        }
-      }
-    }
-  };
 
   constructor(
-    private itemsService: ItemsService,
-    private authStateService: AuthStateService,
-    private router: Router,
-    private modalService: BsModalService
+    private readonly itemsService: ItemsService,
+    private readonly authStateService: AuthStateService,
+    private readonly router: Router,
+    private readonly modalService: BsModalService
   ) {}
 
   ngOnInit() {
@@ -82,7 +66,7 @@ export class InventoryDetailComponent implements OnInit {
   }
 
   updateChartData() {
-    this.polarAreaChartLabels = this.items.map((item: any) => item.name);
+    this.polarAreaChartData.labels = this.items.map((item: any) => item.name);
     this.polarAreaChartData.datasets[0].data = this.items.map((item: any) => item.quantity);
   }
 
@@ -107,6 +91,21 @@ export class InventoryDetailComponent implements OnInit {
     }
   }
 
+  deleteItem(id_item: string) {
+    const userData = this.authStateService.getUserData();
+    if (userData) {
+      this.itemsService.deleteItem(userData.account.id_account, userData.role.id_role, id_item).subscribe({
+        next: () => {
+          this.items = this.items.filter(item => item.id_item !== id_item);
+          this.updateChartData();
+        },
+        error: error => {
+          console.error('Error deleting item', error);
+        }
+      });
+    }
+  }
+
   // events
   public chartClicked({ event, active }: { event: ChartEvent; active: object[] }): void {
     console.log(event, active);
@@ -114,5 +113,20 @@ export class InventoryDetailComponent implements OnInit {
 
   public chartHovered({ event, active }: { event: ChartEvent; active: object[] }): void {
     console.log(event, active);
+  }
+
+  downloadPDF() {
+    const DATA = document.getElementById('pdfContent');
+    if (DATA) {
+      html2canvas(DATA).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgProps = pdf.getImageProperties(imgData);
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        pdf.save('inventory-details.pdf');
+      });
+    }
   }
 }

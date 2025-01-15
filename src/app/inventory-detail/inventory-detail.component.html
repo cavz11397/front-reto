@@ -2,7 +2,10 @@
 <div class="inventory-header" *ngIf="inventory">
   <h1>{{ inventory.name }}</h1>
 </div>
-<button class="btn btn-primary" (click)="openAddItemModal(addItemTemplate)">Add Item</button>
+<button class="btn btn-primary" (click)="openAddItemModal(addItemTemplate)">
+  Add Item
+</button>
+<button class="btn btn-secondary" (click)="downloadPDF()">Download PDF</button>
 <ng-template #addItemTemplate>
   <div class="modal-body">
     <h3>Add New Item</h3>
@@ -41,11 +44,17 @@
         />
       </div>
       <button type="submit" class="btn btn-success">Add</button>
-      <button type="button" class="btn btn-secondary" (click)="modalRef?.hide()">Cancel</button>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="modalRef?.hide()"
+      >
+        Cancel
+      </button>
     </form>
   </div>
 </ng-template>
-<div *ngIf="items.length > 0">
+<div id="pdfContent" *ngIf="items.length > 0">
   <h2>Items</h2>
   <table class="items-table table table-striped">
     <thead>
@@ -53,6 +62,7 @@
         <th>Name</th>
         <th>Quantity</th>
         <th>Price</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <tbody>
@@ -60,6 +70,9 @@
         <td>{{ item.name }}</td>
         <td>{{ item.quantity }}</td>
         <td>{{ item.price }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteItem(item.id_item)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -67,12 +80,9 @@
     <canvas
       baseChart
       [data]="polarAreaChartData"
-      [labels]="polarAreaChartLabels"
-      [options]="polarAreaChartOptions"
+      [legend]="polarAreaLegend"
       [type]="polarAreaChartType"
-      (chartHover)="chartHovered($event)"
-      >
-      <!-- (chartClick)="chartClicked($event)" -->
+    >
     </canvas>
   </div>
 </div>

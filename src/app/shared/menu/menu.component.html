@@ -1,8 +1,6 @@
 <nav>
     <ul>
       <li><a routerLink="/dashboard">Inventarios</a></li>
-      <li><a routerLink="/profile">Cuentas</a></li>
-      <li><a routerLink="/settings">Roles</a></li>
       <li><a (click)="logout()">Logout</a></li>
     </ul>
     <div class="user-info" *ngIf="userData">

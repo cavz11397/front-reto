@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DashboardComponent } from './dashboard.component';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -8,7 +10,10 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardComponent]
+      imports: [DashboardComponent, HttpClientTestingModule],
+      providers: [
+        { provide: ActivatedRoute, useValue: { params: of({}) } } // Proveer ActivatedRoute con un valor simulado
+      ]
     })
     .compileComponents();
     
@@ -20,4 +25,6 @@ describe('DashboardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  
 });

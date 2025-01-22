@@ -1,5 +1,5 @@
-# Usar una imagen base oficial de Node.js para construir la aplicación
-FROM node:14 AS build
+# Usar una imagen base oficial de Node.js más reciente (versión 18 o superior)
+FROM node:18 AS build
 
 # Establecer el directorio de trabajo
 WORKDIR /usr/src/app
@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Instalar las dependencias
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copiar el resto de la aplicación
 COPY . .
@@ -20,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copiar los archivos construidos al directorio de Nginx
-COPY --from=build /usr/src/app/dist/your-angular-app /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist/front /usr/share/nginx/html
 
 # Exponer el puerto en el que Nginx se ejecutará
 EXPOSE 80

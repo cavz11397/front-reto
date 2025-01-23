@@ -1,88 +1,94 @@
 <app-menu></app-menu>
-<div class="inventory-header" *ngIf="inventory">
-  <h1>{{ inventory.name }}</h1>
-</div>
-<button class="btn btn-primary" (click)="openAddItemModal(addItemTemplate)">
-  Add Item
-</button>
-<button class="btn btn-secondary" (click)="downloadPDF()">Download PDF</button>
-<ng-template #addItemTemplate>
-  <div class="modal-body">
-    <h3>Add New Item</h3>
-    <form (ngSubmit)="addItem()">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          [(ngModel)]="newItem.name"
-          name="name"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="quantity">Quantity:</label>
-        <input
-          type="number"
-          id="quantity"
-          class="form-control"
-          [(ngModel)]="newItem.quantity"
-          name="quantity"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="price">Price:</label>
-        <input
-          type="number"
-          id="price"
-          class="form-control"
-          [(ngModel)]="newItem.price"
-          name="price"
-          required
-        />
-      </div>
-      <button type="submit" class="btn btn-success">Add</button>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="modalRef?.hide()"
-      >
-        Cancel
-      </button>
-    </form>
+<div class="main-container">
+  <div class="inventory-header" *ngIf="inventory">
+    <h1>{{ inventory.name }}</h1>
   </div>
-</ng-template>
-<div id="pdfContent" *ngIf="items.length > 0">
-  <h2>Items</h2>
-  <table class="items-table table table-striped">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of items">
-        <td>{{ item.name }}</td>
-        <td>{{ item.quantity }}</td>
-        <td>{{ item.price }}</td>
-        <td>
-          <button class="btn btn-danger" (click)="deleteItem(item.id_item)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="chart-container">
-    <canvas
-      baseChart
-      [data]="polarAreaChartData"
-      [legend]="polarAreaLegend"
-      [type]="polarAreaChartType"
-    >
-    </canvas>
+  <button class="btn btn-primary" (click)="openAddItemModal(addItemTemplate)">
+    <i class="fa-solid fa-plus"></i> Add Item
+  </button>
+  <button class="btn btn-secondary" (click)="downloadPDF()">
+    <i class="fa-solid fa-file-export"></i> Download PDF
+  </button>
+  <ng-template #addItemTemplate>
+    <div class="modal-body">
+      <h3>Add New Item</h3>
+      <form (ngSubmit)="addItem()">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            [(ngModel)]="newItem.name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity:</label>
+          <input
+            type="number"
+            id="quantity"
+            class="form-control"
+            [(ngModel)]="newItem.quantity"
+            name="quantity"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="price">Price:</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control"
+            [(ngModel)]="newItem.price"
+            name="price"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-success">Add</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="modalRef?.hide()"
+        >
+          Cancel
+        </button>
+      </form>
+    </div>
+  </ng-template>
+  <div id="pdfContent" *ngIf="items.length > 0">
+    <h2>Items</h2>
+    <table class="items-table table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>{{ item.name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.price }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteItem(item.id_item)">
+              <i class="fa-solid fa-trash"></i> Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="chart-container">
+      <canvas
+        baseChart
+        [data]="polarAreaChartData"
+        [legend]="polarAreaLegend"
+        [type]="polarAreaChartType"
+      >
+      </canvas>
+    </div>
   </div>
 </div>

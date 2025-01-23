@@ -46,3 +46,7 @@
   padding: 8px;
   box-sizing: border-box;
 }
+
+.main-container {
+  margin: 0 20px; /* Añadir margen a los lados */
+}

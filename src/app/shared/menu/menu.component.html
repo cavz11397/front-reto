@@ -1,14 +1,17 @@
 <nav>
-    <ul>
-      <li><a routerLink="/dashboard">Inventarios</a></li>
-      <li><a (click)="logout()">Logout</a></li>
-    </ul>
-    <div class="user-info" *ngIf="userData">
-      <div class="user-account">
-        Cuenta: <span>{{ userData.account.owner_inventory }}</span>
-      </div>
-      <div class="user-role">
-        Rol: <span>{{ userData.role.role_user }}</span>
-      </div>
+  <ul>
+    <li><a routerLink="/dashboard">
+      <i class="fa-solid fa-boxes-stacked"></i> Inventarios</a></li>
+    <li><a (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
+  </ul>
+  <div class="user-info" *ngIf="userData">
+    <div class="user-account">
+      <i class="fas fa-user-circle"></i>
+      Cuenta: <span>{{ userData.account.owner_inventory }}</span>
     </div>
-  </nav>
+    <div class="user-role">
+      <i class="fas fa-user"></i>
+      Rol: <span>{{ userData.role.role_user }}</span>
+    </div>
+  </div>
+</nav>

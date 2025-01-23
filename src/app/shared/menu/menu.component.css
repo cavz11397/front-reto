@@ -1,51 +1,38 @@
 nav {
-    background-color: #333;
-    overflow: hidden;
-    position: relative;
-    padding: 10px; /* Añadir padding para evitar que el contenido toque los bordes */
-  }
-  
-  nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li {
-    float: left;
-  }
-  
-  nav ul li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  nav ul li a:hover {
-    background-color: #111;
-  }
-  
-  .user-info {
-    position: absolute;
-    right: 10px; /* Ajustar para que no toque el borde derecho */
-    top: 10px; /* Ajustar para que no toque el borde superior */
-    background-color: white;
-    color: black;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row; /* Cambiado a fila */
-    align-items: center;
-  }
-  
-  .user-info .user-account,
-  .user-info .user-role {
-    margin-right: 20px; /* Ajustado a margen derecho para separación */
-  }
-  
-  .user-info .user-role {
-    margin-right: 0; /* Eliminar margen derecho del último elemento */
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+ul li {
+  margin: 0 10px;
+}
+
+ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.user-account, .user-role {
+  display: flex;
+  align-items: center;
+}
+
+.user-account i, .user-role i {
+  margin-right: 5px;
+}
